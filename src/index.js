@@ -23,7 +23,7 @@ const WidgetComponent = zoid.create({
     }
     const qs = QS.stringify(params)
     const URLs = {
-      sandbox: 'http://acceptance.5kdpi3dqer.eu-west-1.elasticbeanstalk.com/main/demo',
+      sandbox: 'http://acceptance.5kdpi3dqer.eu-west-1.elasticbeanstalk.com',
       live: 'http://live-url.com'
     }
     return `${URLs[props.env]}/zlick/load?${qs}`
