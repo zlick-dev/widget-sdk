@@ -22,7 +22,11 @@ const WidgetComponent = zoid.create({
       params.subscription_id = props.subscription.id
     }
     const qs = QS.stringify(params)
-    return `<%= ENV.fetch("WIDGET_BASE_URL") { "http://127.0.0.1:3000" } %>/zlick/load?${qs}`
+    const URLs = {
+      sandbox: 'http://acceptance.5kdpi3dqer.eu-west-1.elasticbeanstalk.com/main/demo',
+      live: 'http://live-url.com'
+    }
+    return `${URLs[props.env]}/zlick/load?${qs}`
   },
 
   // The size of the component on their page. Only px and % strings are supported
