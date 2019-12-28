@@ -4,6 +4,10 @@
   "description": "Zlick widget",
   "main": "dist/zlick-widget.js",
   "module": "src/index.js",
+  "repository": {
+    "url": "https://github.com/zlick-dev/widget-sdk",
+    "type": "git"
+  },
   "scripts": {
     "build": "webpack"
   },
