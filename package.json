@@ -9,7 +9,9 @@
     "type": "git"
   },
   "scripts": {
-    "build": "webpack"
+    "build": "webpack",
+    "deploy": "git push && npm publish",
+    "postversion": "webpack && git push && npm publish"
   },
   "author": "Arsalan Ahmad <arsalan@zlick.it>",
   "license": "MIT",
