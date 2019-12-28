@@ -1,0 +1,19 @@
+{
+  "name": "zlick-widget",
+  "version": "1.0.0",
+  "description": "Zlick widget",
+  "main": "dist/zlick-widget.js",
+  "module": "src/index.js",
+  "scripts": {
+    "build": "webpack"
+  },
+  "author": "Arsalan Ahmad <arsalan@zlick.it>",
+  "license": "MIT",
+  "dependencies": {
+    "zoid": "^9.0.37"
+  },
+  "devDependencies": {
+    "webpack": "^4.41.5",
+    "webpack-cli": "^3.3.10"
+  }
+}
