@@ -44,8 +44,8 @@ const WidgetComponent = zoid.create({
       type: 'string',
       required: true,
       validate: ({ value }) => {
-        if (!['sandbox', 'live'].includes(value)) {
-          throw new TypeError('Value of parameter env must be either sandbox or live')
+        if (!['sandbox', 'live', 'localhost'].includes(value)) {
+          throw new TypeError('Value of parameter env must be of sandbox or live')
         }
       }
     },
