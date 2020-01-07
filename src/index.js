@@ -12,7 +12,7 @@ const WidgetComponent = zoid.create({
   url: ({ props }) => {
     const params = {
       client_token: props.clientToken,
-      env: props.env,
+      env: props.env === 'live' ? 'live' : 'sandbox',
       purpose: props.purpose
     }
     if (props.purpose === 'purchase') {
@@ -23,6 +23,7 @@ const WidgetComponent = zoid.create({
     }
     const qs = QS.stringify(params)
     const URLs = {
+      localhost: 'http://localhost:3000',
       sandbox: 'https://widget-v3-dev.zlickpay.com',
       live: 'https://widget-v3.zlickpay.com'
     }
