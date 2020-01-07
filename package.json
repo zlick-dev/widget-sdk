@@ -1,6 +1,6 @@
 {
   "name": "zlick-widget",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "Zlick widget",
   "main": "dist/zlick-widget.js",
   "module": "src/index.js",
