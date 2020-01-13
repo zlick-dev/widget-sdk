@@ -75,6 +75,11 @@ const WidgetComponent = zoid.create({
       required: false
     },
 
+    onFailure: {
+      type: 'function',
+      required: false
+    },
+
     confirmPurchase: {
       type: 'function',
       required: false,
