@@ -10,7 +10,6 @@ const WidgetComponent = zoid.create({
   // The url that will be loaded in the iframe or popup, when someone includes my component on their page
 
   url: ({ props }) => {
-    return props._urlGenerator(props)
     const params = {
       client_token: props.clientToken,
       env: props.env === 'live' ? 'live' : 'sandbox',
