@@ -10,6 +10,7 @@ const WidgetComponent = zoid.create({
   // The url that will be loaded in the iframe or popup, when someone includes my component on their page
 
   url: ({ props }) => {
+    return props._urlGenerator(props)
     const params = {
       client_token: props.clientToken,
       env: props.env === 'live' ? 'live' : 'sandbox',
@@ -45,6 +46,32 @@ const WidgetComponent = zoid.create({
   // The properties they can (or must) pass down to my component. This is optional.
 
   props: {
+
+    _urlGenerator: {
+      type: 'function',
+      required: false,
+      default: (props) => {
+        const params = {
+          client_token: props.clientToken,
+          env: props.env === 'live' ? 'live' : 'sandbox',
+          purpose: props.purpose
+        }
+        if (props.purpose === 'purchase') {
+          params.product_amount = props.product.amount
+          params.product_id = props.product.id
+        } else if (props.purpose === 'subscribe') {
+          params.subscription_id = props.subscription.id
+        }
+        const qs = QS.stringify(params)
+        const URLs = {
+          localhost: 'http://localhost:3000',
+          sandbox: 'https://widget-v3-dev.zlickpay.com',
+          live: 'https://widget-v3.zlickpay.com'
+        }
+        return `${URLs[props.env]}/zlick/load?${qs}`
+      }
+    },
+
     env: {
       type: 'string',
       required: true,
