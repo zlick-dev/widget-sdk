@@ -46,6 +46,12 @@ const WidgetComponent = zoid.create({
     height: true
   },
 
+  attributes: {
+    iframe: {
+      sandbox: 'allow-storage-access-by-user-activation allow-scripts allow-same-origin'
+    }
+  },
+
   // The properties they can (or must) pass down to my component. This is optional.
 
   props: {
