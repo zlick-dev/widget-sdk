@@ -16,7 +16,7 @@
   "author": "Arsalan Ahmad <arsalan@zlick.it>",
   "license": "MIT",
   "dependencies": {
-    "zoid": "^9.0.37"
+    "zoid": "^9.0.42"
   },
   "devDependencies": {
     "webpack": "^4.41.5",
