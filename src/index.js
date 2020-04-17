@@ -112,9 +112,6 @@ const WidgetComponent = zoid.create({
       type: 'object',
       required: false,
       validate: ({ value, props }) => {
-        if (props.mode === 'product' && !value) {
-          throw new TypeError('Product params must be defined in product mode')
-        }
         if (!value.id) {
           throw new TypeError('Product ID must be defined')
         }
@@ -122,6 +119,26 @@ const WidgetComponent = zoid.create({
           throw new TypeError('Product price must be defined')
         }
       }
+    },
+
+    subscription: {
+      type: 'object',
+      required: false,
+      validate: ({ value, props }) => {
+        if (!value.id) {
+          throw new TypeError('Subscription ID must be defined')
+        }
+      }
+    },
+
+    clientTransactionId: {
+      type: 'string',
+      required: false
+    },
+
+    clientUserId: {
+      type: 'string',
+      required: false
     }
   }
 })
