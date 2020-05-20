@@ -50,14 +50,6 @@ const WidgetComponent = zoid.create({
     iframe: {}
   },
 
-  containerTemplate: function containerTemplate({ doc, uid, frame, prerenderFrame }) {
-    let container = doc.createElement('div');
-    container.id = uid;
-    container.appendChild(frame);
-    container.appendChild(prerenderFrame);
-    return container;
-  },
-
   // The properties they can (or must) pass down to my component. This is optional.
 
   props: {
