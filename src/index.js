@@ -16,8 +16,8 @@ function __urlGenerator (props) {
   const qs = QS.stringify(params)
   const URLs = {
     localhost: 'http://localhost:3000',
-    sandbox: 'https://widget-v3-dev.zlickpay.com',
-    live: 'https://widget-v3.zlickpay.com'
+    sandbox: 'https://widget-v4-dev.zlickpay.com',
+    live: 'https://widget-v4.zlickpay.com'
   }
   return `${URLs[props.env]}/zlick/load?${qs}`
 }
@@ -48,6 +48,14 @@ const WidgetComponent = zoid.create({
 
   attributes: {
     iframe: {}
+  },
+
+  containerTemplate: function containerTemplate({ doc, uid, frame, prerenderFrame }) {
+    let container = doc.createElement('div');
+    container.id = uid;
+    container.appendChild(frame);
+    container.appendChild(prerenderFrame);
+    return container;
   },
 
   // The properties they can (or must) pass down to my component. This is optional.
