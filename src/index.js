@@ -200,4 +200,10 @@ const WidgetComponent = zoid.create({
   }
 })
 
+if (window) {
+  window._zlick_wp_logout = function _zlick_wp_logout() {
+    eraseCookie(ZLICK_USER_ID_COOKIE_NAME)
+  }
+}
+
 module.exports = WidgetComponent
