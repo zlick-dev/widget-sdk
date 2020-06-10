@@ -10,7 +10,7 @@ function setCookie(name,value,days) {
       date.setTime(date.getTime() + (days*24*60*60*1000));
       expires = "; expires=" + date.toUTCString();
   }
-  document.cookie = name + "=" + (value || "")  + expires + "; path=/";
+  document.cookie = name + "=" + (value || "")  + expires + "; path=/; SameSite=Strict";
 }
 function getCookie(name) {
   var nameEQ = name + "=";
@@ -23,7 +23,7 @@ function getCookie(name) {
   return null;
 }
 function eraseCookie(name) {   
-  document.cookie = name+'=; Max-Age=-99999999;';  
+  document.cookie = name+'=; Max-Age=-99999999; path=/; SameSite=Strict';  
 }
 
 function __urlGenerator (props) {
