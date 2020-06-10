@@ -1,6 +1,31 @@
 const zoid = require('zoid')
 const QS = require('querystring')
 
+const ZLICK_USER_ID_COOKIE_NAME = 'zlick-user-id'
+
+function setCookie(name,value,days) {
+  var expires = "";
+  if (days) {
+      var date = new Date();
+      date.setTime(date.getTime() + (days*24*60*60*1000));
+      expires = "; expires=" + date.toUTCString();
+  }
+  document.cookie = name + "=" + (value || "")  + expires + "; path=/";
+}
+function getCookie(name) {
+  var nameEQ = name + "=";
+  var ca = document.cookie.split(';');
+  for(var i=0;i < ca.length;i++) {
+      var c = ca[i];
+      while (c.charAt(0)==' ') c = c.substring(1,c.length);
+      if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+  }
+  return null;
+}
+function eraseCookie(name) {   
+  document.cookie = name+'=; Max-Age=-99999999;';  
+}
+
 function __urlGenerator (props) {
   const params = {
     client_token: props.clientToken,
@@ -20,6 +45,14 @@ function __urlGenerator (props) {
     live: 'https://widget-v4.zlickpay.com'
   }
   return `${URLs[props.env]}/zlick/load?${qs}`
+}
+
+function __logout() {
+  eraseCookie(ZLICK_USER_ID_COOKIE_NAME)
+}
+
+function __setUserIdToken (userIdToken) {
+  setCookie(ZLICK_USER_ID_COOKIE_NAME, userIdToken, 30)
 }
 
 const WidgetComponent = zoid.create({
@@ -62,6 +95,22 @@ const WidgetComponent = zoid.create({
       }
     },
 
+    _logout: {
+      type: 'function',
+      required: false,
+      default: () => {
+        return __logout
+      }
+    },
+
+    _setUserIdToken: {
+      type: 'function',
+      required: false,
+      default: () => {
+        return __setUserIdToken
+      }
+    },
+
     env: {
       type: 'string',
       required: true,
@@ -79,6 +128,14 @@ const WidgetComponent = zoid.create({
         if (!['purchase', 'subscribe'].includes(value)) {
           throw new TypeError('Value of parameter purpose must be either purchase or subscribe')
         }
+      }
+    },
+
+    userIdToken: {
+      type: 'string',
+      required: false,
+      default: () => {
+        return getCookie(ZLICK_USER_ID_COOKIE_NAME)
       }
     },
 
