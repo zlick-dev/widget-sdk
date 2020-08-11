@@ -3,30 +3,30 @@ const QS = require('querystring')
 
 const ZLICK_USER_ID_COOKIE_NAME = 'zlick-user-id'
 
-function setCookie(name,value,days) {
+function setCookie(name, value, days) {
   var expires = "";
   if (days) {
-      var date = new Date();
-      date.setTime(date.getTime() + (days*24*60*60*1000));
-      expires = "; expires=" + date.toUTCString();
+    var date = new Date();
+    date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+    expires = "; expires=" + date.toUTCString();
   }
-  document.cookie = name + "=" + (value || "")  + expires + "; path=/; SameSite=Strict";
+  document.cookie = name + "=" + (value || "") + expires + "; path=/; SameSite=Strict";
 }
 function getCookie(name) {
   var nameEQ = name + "=";
   var ca = document.cookie.split(';');
-  for(var i=0;i < ca.length;i++) {
-      var c = ca[i];
-      while (c.charAt(0)==' ') c = c.substring(1,c.length);
-      if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+  for (var i = 0; i < ca.length; i++) {
+    var c = ca[i];
+    while (c.charAt(0) == ' ') c = c.substring(1, c.length);
+    if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
   }
   return null;
 }
-function eraseCookie(name) {   
-  document.cookie = name+'=; Max-Age=-99999999; path=/; SameSite=Strict';  
+function eraseCookie(name) {
+  document.cookie = name + '=; Max-Age=-99999999; path=/; SameSite=Strict';
 }
 
-function __urlGenerator (props) {
+function __urlGenerator(props) {
   const params = {
     client_token: props.clientToken,
     env: props.env === 'live' ? 'live' : 'sandbox',
@@ -51,7 +51,7 @@ function __logout() {
   eraseCookie(ZLICK_USER_ID_COOKIE_NAME)
 }
 
-function __setUserIdToken (userIdToken) {
+function __setUserIdToken(userIdToken) {
   setCookie(ZLICK_USER_ID_COOKIE_NAME, userIdToken, 30)
 }
 
@@ -131,6 +131,14 @@ const WidgetComponent = zoid.create({
       }
     },
 
+    referrer: {
+      type: 'string',
+      required: false,
+      default: () => {
+        return window.location.href
+      }
+    },
+
     userIdToken: {
       type: 'string',
       required: false,
@@ -202,7 +210,7 @@ const WidgetComponent = zoid.create({
 
 if (window) {
   window._zlick_wp_logout = function _zlick_wp_logout() {
-    eraseCookie(ZLICK_USER_ID_COOKIE_NAME)
+    document.cookie = 'zlick-user-id' + '=; Max-Age=-99999999; path=/; SameSite=Strict';
   }
 }
 
