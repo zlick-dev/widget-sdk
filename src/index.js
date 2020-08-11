@@ -131,7 +131,7 @@ const WidgetComponent = zoid.create({
       }
     },
 
-    referrer: {
+    referer: {
       type: 'string',
       required: false,
       default: () => {
